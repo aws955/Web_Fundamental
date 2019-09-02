@@ -2,6 +2,18 @@
 <%@page import="kr.co.kic.dev1.dao.MemberDao"%>
 <%@ page pageEncoding="UTF-8" info="test"%>
 <%
+	String tempPage = request.getParameter("page");
+	int cPage = 0;
+	if (tempPage == null || tempPage.length() == 0) {
+		cPage = 1;
+	}
+	try {
+		cPage = Integer.parseInt(tempPage);
+	} catch (NumberFormatException e) {
+		cPage = 1;
+	}
+%>
+<%
 	String tempSeq = request.getParameter("seq");
 	int seq = 0;
 	try {
@@ -58,7 +70,7 @@
 						<div class="text-right">
 							<a href="" id="modifyMember" class="btn btn-outline-primary">수정</a>
 							<a href="" id="deleteMember" class="btn btn-outline-danger">삭제</a>
-							<a href="list.jsp" class="btn btn-outline-success">리스트</a>
+							<a href="list.jsp?page=<%=cPage %>" class="btn btn-outline-success">리스트</a>
 						</div>
 						<script>
 							$(function() {
@@ -87,6 +99,7 @@
               </div>
               --%>
 						<input type="hidden" name="seq" value="<%=seq%>">
+						<input type="hidden" name="page" value="<%=cPage%>">
 					</form>
 				</div>
 			</div>

@@ -187,7 +187,7 @@ public class MemberDao {
 			StringBuffer sql = new StringBuffer();
 			sql.append("SELECT m_seq,m_id,m_email,m_name,m_phone,DATE_FORMAT(m_regdate,'%Y-%m-%d') ");
 			sql.append("FROM member ");
-			sql.append("ORDER BY m_seq DESC ");
+			sql.append("ORDER BY m_seq desc ");
 			sql.append("LIMIT ?,? ");
 			
 			pstmt = con.prepareStatement(sql.toString());
@@ -220,5 +220,40 @@ public class MemberDao {
 		}
 		
 		return list;	
+	}
+	
+	public int getRows() {
+		int conunt = 0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int index = 1;
+		
+		try {
+			con = ConnLocator.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT COUNT(*) ");
+			sql.append("FROM member ");
+			
+			pstmt = con.prepareStatement(sql.toString());
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				index = 1;
+				conunt = rs.getInt(index++);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			} catch (SQLException e2) {
+				e2.printStackTrace();
+			}
+		}
+		return conunt;
 	}
 }
