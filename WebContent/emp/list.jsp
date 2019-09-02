@@ -3,8 +3,12 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ include file="../inc/header.jsp"%>
-<%
+<%	
 	EmpDao dao = EmpDao.getInstance();
+
+	
+	
+	
 	ArrayList<EmpDto> list = dao.select(0, 100);
 %>
 <nav aria-label="breadcrumb">
@@ -68,16 +72,15 @@
 							<ul class="pagination pagination-lg justify-content-center">
 								<li class="page-item disabled"><a class="page-link"
 									href="#" tabindex="-1">&laquo;</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">4</a></li>
-								<li class="page-item"><a class="page-link" href="#">5</a></li>
-								<li class="page-item"><a class="page-link" href="#">6</a></li>
-								<li class="page-item"><a class="page-link" href="#">7</a></li>
-								<li class="page-item"><a class="page-link" href="#">8</a></li>
-								<li class="page-item"><a class="page-link" href="#">9</a></li>
-								<li class="page-item"><a class="page-link" href="#">10</a></li>
+								
+								
+								<%
+									for(int i = 0 ; i<list.size() ; i++){
+								%>								
+								<li class="page-item"><a class="page-link" href="list.jsp?page=<%=i%>"><%=i%></a></li>
+
+								<%} %>
+								
 								<li class="page-item"><a class="page-link" href="#">&raquo;</a>
 								</li>
 							</ul>

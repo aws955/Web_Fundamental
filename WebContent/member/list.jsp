@@ -13,7 +13,7 @@
 	*/
 	String tempPage = request.getParameter("page");
 	int cPage = 0;
-	if (tempPage == null || tempPage.length() == 0) {
+	if (tempPage == null || tempPage.length()==0 ||tempPage.equals("0")) {
 		tempPage = "1";
 	}
 	try {
