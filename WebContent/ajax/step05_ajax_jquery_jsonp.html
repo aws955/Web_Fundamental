@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Ajax POST Demo</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script>
+	$(function(){
+		$.ajax({
+			type : 'GET',
+			url : 'http://www.acornacademy.co.kr/blockchain/naver_json.jsp',
+			dataType : 'jsonp', //json , xml 이면 ajax를 콜해주고 jsonp 의 경우에는 ajax를 콜하지않고 step4의 코딩처럼 보내준다.
+								//즉, jsonp의 경우에는 비동기 지원이 안된다.
+			jsonp : 'callback', //callback key를 입력하면 함수 이름은 내부적으로 정한다.
+			success : function(json){
+				$('#divMessage').html(JSON.stringify(json));
+			}
+		});
+	});
+</script>
+</head>
+<body>
+	<div id = "divMessage"></div>
+</body>
+
+</html>

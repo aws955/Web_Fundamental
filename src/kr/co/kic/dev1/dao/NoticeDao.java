@@ -220,4 +220,6 @@ public class NoticeDao {
 		}
 		return list;
 	}
+	
+	
 }
