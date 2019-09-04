@@ -2,10 +2,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="kr.co.kic.dev1.dao.MemberDao"%>
 <%@ page pageEncoding="UTF-8"%>
-
- 
 <%@ include file="../inc/header.jsp"%>
-
 <%
 	/*
 		page = 1 => 1~10 => limit 0,10
@@ -14,7 +11,6 @@
 		등차수열 공식 => An = a1+(n-1)*d   (a1은 초항)
 		0+(page-1)*10
 	*/
-	
 	String tempPage = request.getParameter("page");
 	int cPage = 0;
 	if (tempPage == null || tempPage.length()==0 ||tempPage.equals("0")) {
@@ -114,7 +110,7 @@
 									<th scope="col">등록날짜</th>
 								</tr>
 							</thead>
-							<tbody id="table_body">
+							<tbody>
 								<%
 									if (list.size() != 0) {
 										for (int i = 0; i < list.size(); i++) {
@@ -172,7 +168,7 @@
 									for (int i = startPage; i <= endPage; i++) {
 								%>
 								<li class="page-item <%if(cPage==i){%>active<%}%>"><a class="page-link"
-									href="javascript:util.pageLoading('<%=i%>','<%=length%>');"><%=i%></a></li>
+									href="list.jsp?page=<%=i%>"><%=i%></a></li>
 								<%
 									}
 								%>
@@ -180,9 +176,7 @@
 
 								<%
 									if (currentBlock != totalBlock) {
-									
 								%>
-								
 								<li class="page-item"><a class="page-link"
 									href="list.jsp?page=<%=endPage + 1%>">&raquo;</a> 
 								<%} else { %>
@@ -203,28 +197,4 @@
 		</div>
 	</div>
 </div>
-<script>
-	const util = {"pageLoading":function(p,len){
-		let url = 'http://localhost/member/list.jsp?page='+p+'&length='+len;
-		history.pushState(null,null,url);
-		$.ajax({
-			type : 'GET',
-			url : 'list_ajax.jsp?page='+p+"&length="+len,
-			dataType : 'html', //json, xml, html (jsonp는 아니다)
-			error : function(){
-				alert('Html loading error');
-			},
-			success : function(html){
-				$("#table_body").children().remove();
-				$("#table_body").html(html);
-			}
-		});
-	}}
-	
-	$(".pagination li").on("click",function(){
-		$(this).addClass("active");
-		$(this).siblings().removeClass("active");
-	});
-	
-</script>
 <%@ include file="../inc/footer.jsp"%>

@@ -318,4 +318,76 @@ public class MemberDao {
 		
 		return jsonObj.toString();	
 	}
+	
+	public boolean isCheck(String id) {
+		boolean isExisted = false;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int index = 1;
+		
+		try {
+			con = ConnLocator.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT m_id ");
+			sql.append("FROM member ");
+			sql.append("WHERE m_id = ? ");
+			
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(index++,id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				isExisted = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			} catch (SQLException e2) {
+				e2.printStackTrace();
+			}
+		}
+		return isExisted;
+	}
+	
+	public boolean isCheckEmail(String email) {
+		boolean isExisted = false;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int index = 1;
+		
+		try {
+			con = ConnLocator.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT m_email ");
+			sql.append("FROM member ");
+			sql.append("WHERE m_email = ? ");
+			
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(index++,email);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				isExisted = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			} catch (SQLException e2) {
+				e2.printStackTrace();
+			}
+		}
+		return isExisted;
+	}
 }

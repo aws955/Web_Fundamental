@@ -24,36 +24,46 @@
 			<div class="card">
 				<div class="card-body">
 					<h5 class="card-title">회원가입</h5>
+					
+					<input type="hidden" name ="checkId" id="checkId" value="no">
+					<input type="hidden" name ="checkEmail" id="checkEmail" value="no">
+					
 					<form class="form-horizontal" role="form" name="f" method="post" action="save.jsp">
 						<div class="form-group">
 							<label class="col-form-label" for="name">성명</label> <input
 								type="text" class="form-control" name="name" id="name"
 								placeholder="이름을 입력해 주세요">
+							<div id = "nameMessage"></div>
 						</div>
 						<div class="form-group">
 							<label class="col-form-label" for="id">아이디</label> <input
 								type="text" class="form-control" name="id" id="id"
 								placeholder="아이디를 입력해 주세요">
+							<div id ="idMessage"></div>	
 						</div>
 						<div class="form-group">
 							<label for="email">이메일 주소</label> <input type="email"
 								class="form-control" name="email" id="email"
 								placeholder="이메일 주소를 입력해주세요">
+							<div id ="emailMessage"></div>
 						</div>
 						<div class="form-group">
 							<label for="pwd">비밀번호</label> <input type="password"
 								class="form-control" name="pwd" id="pwd"
 								placeholder="비밀번호를 입력해주세요">
+							<div id ="pwdMessage"></div>
 						</div>
 						<div class="form-group">
 							<label for="repwd">비밀번호 확인</label> <input type="password"
 								class="form-control" name="repwd" id="repwd"
 								placeholder="비밀번호 확인을 위해 다시한번 입력 해 주세요">
+							<div id ="repwdMessage"></div>
 						</div>
 						<div class="form-group">
 							<label for="phone">휴대폰 번호</label> <input type="tel"
 								class="form-control" name="phone" id="phone"
 								placeholder="휴대폰번호를 입력해 주세요">
+							<div id= "phoneMessage"></div>
 						</div>
 
 						<%-- 
@@ -65,6 +75,7 @@
                   가입취소<i class="fa fa-times spaceLeft"></i>
                 </button>
                 
+                //var regEmail = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/; =>이메일 인증
               </div>
              --%>
 					</form>
@@ -74,42 +85,139 @@
 					</div>
 					<script>
 						$(function() {
+							let regEmail =/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 							$("#saveMember").on('click', function(event) {
 								event.preventDefault();
 								//유효성 검사 하기
-								let name = $('#name').val();
-								let id = $('#id').val();
-								let email = $('#email').val();
-								let pwd = $('#pwd').val();
-								let repwd = $('#repwd').val();
-								let phone = $('#phone').val();
+								if($("#name").val().trim().length==0){
+									$("#nameMessage").html("<span class='text-danger'>이름을 입력하세요</span>");
+									$("#name").addClass("is-invalid");
+									$("#name").focus();
+									return;
+								}
 								
-								if (!name) {
-									alert('값을 입력하세요');
-									$('#name').focus();
-								} else if(!id){
-									alert('값을 입력하세요');
-									$('#id').focus();
-								} else if(!email){
-									alert('값을 입력하세요');
-									$('#email').focus();
-								} else if(!pwd){
-									alert('값을 입력하세요');
-									$('#pwd').focus();
-								} else if(!repwd){
-									alert('값을 입력하세요');
-									$('#repwd').focus();
-								} else if(pwd != repwd){
-									alert('비밀번호와 비밀번호 확인을 같게 하세요')
-								} else if(!phone){
-									alert('값을 입력하세요');
-									$('#phone').focus();
-								} else {
-									f.submit();
-								}	
+								if($("#id").val().trim().length<4||$("#id").val().trim().length>12){
+									$("#idMessage").html("<span class='text-danger'>아이디는 4자이상 12자이하입니다.</span>");
+									$("#id").addClass("is-invalid");
+									$("#id").focus();
+									return;
+								}
+								
+								if(regEmail.test($("#email").val().trim())==false){
+									$("#emailMessage").html("<span class='text-danger'>올바른 이메일 형식이 아닙니다</span>");
+									$("#email").addClass("is-invalid");
+									$("#email").focus();
+									return;
+								}
+								
+								if($("#pwd").val().trim().length==0){
+									$("#pwdMessage").html("<span class='text-danger'>비밀번호를 입력하세요</span>");
+									$("#pwd").addClass("is-invalid");
+									$("#pwd").focus();
+									return;
+								}
+								
+								if($("#repwd").val().trim().length==0){
+									$("#repwdMessage").html("<span class='text-danger'>비밀번호 확인 입력하세요</span>");
+									$("#repwd").addClass("is-invalid");
+									$("#repwd").focus();
+									return;
+								}
+								
+								if($("#pwd").val().trim() != $("#repwd").val().trim()){
+									$("#repwdMessage").html("<span class='text-danger'>비밀번호 확인과 비밀번호를 일치하세요</span>");
+									$("#repwd").addClass("is-invalid");
+									$("#repwd").focus();
+									return;
+								}
+								
+								if($("#phone").val().trim().length==0){
+									$("#phoneMessage").html("<span class='text-danger'>비밀번호 확인 입력하세요</span>");
+									$("#phone").addClass("is-invalid");
+									$("#phone").focus();
+									return;
+								}
+								
+								if($("#checkId").val()=="no"){
+									return;
+								}
+								if($("#checkEmail").val()=="no"){
+									return;
+								}
+								
+								f.submit();
+							}); //end of register click event
+							
+							$("#name").on("keyup",function(){
+								$("#name").removeClass("is-invalid");
+								$("#nameMessage").html('');
 							});
-
-						});
+							
+							$("#id").on("keyup",function(){
+								$("#id").removeClass("is-invalid");
+								$("#idMessage").html('');
+								if($("#id").val().trim().length>=4 && $("#id").val().trim().length<=12){
+									$.ajax({
+										type: 'GET',
+										url: 'check_id_ajax.jsp?id='+$("#id").val().trim(),
+										dataType : 'json',
+										error : function(){
+											alert('error');
+										},
+										success : function(json){
+											//json => {"result" : "ok"}
+											//json => {"result" : "fail"}
+											if(json.result == "ok"){
+												$("#idMessage").html("<span class='text-danger'>이미 등록된 아이디입니다</span>");
+												$("#id").addClass("is-invalid");
+												$("#checkId").val("no");
+											}else{
+												$("#idMessage").html("<span class='text-success'>등록 가능한 아이디입니다.</span>");
+												$("#checkId").val("yes");
+											}
+										}
+									});
+								}
+							});//end of id key event
+							
+							$("#email").on("keyup",function(){
+								$("#email").removeClass("is-invalid");
+								$("#emailMessage").html('');
+								if(regEmail.test($("#email").val().trim())==true){
+									$.ajax({
+										type: 'GET',
+										url: 'check_email_ajax.jsp?email='+$("#email").val().trim(),
+										dataType : 'json',
+										error : function(){
+											alert('error');
+										},
+										success : function(json){
+											//json => {"result" : "ok"}
+											//json => {"result" : "fail"}
+											if(json.result == "ok"){
+												$("#emailMessage").html("<span class='text-danger'>이미 등록된 이메일입니다</span>");
+												$("#email").addClass("is-invalid");
+												$("#checkEmail").val("no");
+											}else{
+												$("#emailMessage").html("<span class='text-success'>등록 가능한 이메일입니다.</span>");
+												$("#checkEmail").val("yes");
+											}
+										}
+									});
+								}
+							});//end of email key event
+							
+							$("#pwd").on("keyup",function(){
+								$("#pwd").removeClass("is-invalid");
+								$("#pwdMessage").html('');
+							});
+							
+							$("#repwd").on("keyup",function(){
+								$("#repwd").removeClass("is-invalid");
+								$("#repwdMessage").html('');
+							});
+							
+						});//end of load event
 					</script>
 				</div>
 			</div>
