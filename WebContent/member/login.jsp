@@ -11,62 +11,52 @@
       <div class="col-sm-12">
         <div class="card">
           <div class="card-body">
+          
+          <% if(memberDto == null){ %>
             <h5 class="card-title">로그인</h5>
             
-            <form name="f" method="POST" action="checklogin.jsp" onsubmit="return check()">
+            <form name="f" method="POST" action="check_login.jsp">
+              
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Your Email *" value="" name="id"/>
-                <span class="text-danger" id="idMessage"></span>
+                <input type="email" id="email" name="email" class="form-control" placeholder="Your Email *" value="" />
               </div>
               
               
               <div class="form-group">
-                <input type="password" class="form-control" placeholder="Your Password *" value="" name="pwd"/>
-                <span class= "text-danger" id="pwdMessage"></span>
+                <input type="password" id="pwd" name="pwd" class="form-control" placeholder="Your Password *" value=""/>
               </div>
               
               <div class="form-group">
-              	<input type="submit" id="saveMember" class="btn btn-primary" value="Login" />
+              	<input type="submit" id="checkLogin" class="btn btn-primary" value="Login" />
               </div>
               <div class="form-group">
-                <a href="#" class="ForgetPwd">Forget Password?</a>
+                <a href="#" id="forgetPwd" class="ForgetPwd">Forget Password?</a>
              </div>
             </form>
+            <script>
+            	$(function(){
+            		$("#checkLogin").on("click",function(event){
+            			event.preventDefault();
+            			if($("#email").val().trim()==""){
+            				alert('이메일을 입력하세요.');
+            				$("#email").focus();
+            				return;
+            			}
+            			if($("#pwd").val().trim()==""){
+            				alert('비밀번호를 입력하세요.');
+            				$("#pwd").focus();
+            				return;
+            			}
+            			f.submit();
+            		});
+            	});
+            </script>
           </div>
+          <%}else{ %>
+          	<h5 class="card-title">로그인을 하셨습니다.</h5>
+          <%} %>
         </div>
       </div>
     </div>
   </div>
 <%@ include file="../inc/footer.jsp" %>
-
-<script>
-	
-		function check(){
-			if(f.id.value==""){
-				$("#idMessage").html("아이디를 입력하세요");
-				$(".form-group input[name=id]").addClass("is-invalid");
-				f.id.focus();
-				return false;
-			}else if(f.pwd.value==""){
-				$("#pwdMessage").html("비밀번호을 입력하세요");
-				$(".form-group input[name=pwd]").addClass("is-invalid");
-				f.pwd.focus();
-				return false;
-			}else {
-				return true;
-			}
-		}
-		
-		$(".form-group input[name=id]").on("keyup",function(){
-			$("#idMessage").html("");
-			$(".form-group input[name=id]").removeClass("is-invalid");
-		});
-		
-		$(".form-group input[name=pwd]").on("keyup",function(){
-			$("#pwdMessage").html("");
-			$(".form-group input[name=pwd]").removeClass("is-invalid");
-		});
-		
-		
-	
-</script>

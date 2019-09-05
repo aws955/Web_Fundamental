@@ -1,4 +1,8 @@
+<%@page import="kr.co.kic.dev1.dto.MemberDto"%>
 <%@ page pageEncoding="UTF-8"%>
+<%
+	MemberDto memberDto =  (MemberDto)session.getAttribute("member");
+%>
 <!doctype html>
 <html lang="en">
 <%
@@ -17,6 +21,10 @@
 		pageActiveIndex = 4;
 	}else if(path.startsWith("/member")){
 		pageActiveIndex = 5;
+	}else if(path.startsWith("/crawling")){
+		pageActiveIndex = 6;
+	}else if(path.startsWith("/file")){
+		pageActiveIndex = 7;
 	}
 	
 %>
@@ -59,6 +67,12 @@
 				<li class="nav-item <%if(pageActiveIndex==5){ %>active<%} %>" >
 					<a class="nav-link" href="/member/list.jsp">Member</a>
 				</li>
+				<li class="nav-item <%if(pageActiveIndex==6){ %>active<%} %>" >
+					<a class="nav-link" href="/crawling/list.jsp">Crawling</a>
+				</li>
+				<li class="nav-item <%if(pageActiveIndex==7){ %>active<%} %>" >
+					<a class="nav-link" href="/file/index.jsp">FileUpload</a>
+				</li>
 
 			</ul>
 
@@ -67,7 +81,11 @@
 					<a class="nav-link " href="/member/register.jsp">Register</a>
 				</li>
 				<li class="nav-item">
+					<% if(memberDto ==null){ %>
 					<a class="nav-link " href="/member/login.jsp"><i class="fa fa-user"></i> Login</a>
+					<% }else{ %>
+					<a class="nav-link " href="/member/logout.jsp"><i class="fa fa-user"></i> Logout(<%=memberDto.getName() %> 환영합니다)</a>
+					<%} %>
 				</li>
 			</ul>
 		</div>
