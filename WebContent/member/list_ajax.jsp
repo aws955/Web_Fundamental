@@ -9,7 +9,6 @@
 	int start = (cPage - 1) * length;
 	MemberDao dao = MemberDao.getInstance();
 	ArrayList<MemberDto> list = dao.select(start, length);
-
 	if (list.size() != 0) {
 		for (int i = 0; i < list.size(); i++) {
 			MemberDto dto = list.get(i);
@@ -19,6 +18,7 @@
 			String email = dto.getEmail();
 			String phone = dto.getPhone();
 			String regdate = dto.getRegdate();
+		
 %>
 	<tr>
 		<th scope="row"><%=seq%></th>
