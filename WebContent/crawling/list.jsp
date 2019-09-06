@@ -17,6 +17,20 @@ try {
 }
 
 Elements elements = doc.select(".view.view-athletes.view-id-athletes");
+Elements elements1 = doc.select(".view-grouping-content");
+
+/*
+for(int i = 0;i<elements1.size();i++){
+	System.out.println(elements1.get(i).text());
+}
+*/
+
+/*
+for(int i = 0;i<elements.size();i++){
+	System.out.println(elements.get(i).text());
+}
+*/
+
 int index = 0;
 
 %>
@@ -31,7 +45,6 @@ int index = 0;
 <div class="container">
 	
 	<div class="row">
-		
 		<div class="col-md-4">
 			<h4>POUND-FOR-POUND</h4>
 			<table class="table table-striped table-dark">

@@ -25,6 +25,8 @@
 		pageActiveIndex = 6;
 	}else if(path.startsWith("/file")){
 		pageActiveIndex = 7;
+	}else if(path.startsWith("/shortenURL")){
+		pageActiveIndex = 8;
 	}
 	
 %>
@@ -72,6 +74,9 @@
 				</li>
 				<li class="nav-item <%if(pageActiveIndex==7){ %>active<%} %>" >
 					<a class="nav-link" href="/file/index.jsp">FileUpload</a>
+				</li>
+				<li class="nav-item <%if(pageActiveIndex==8){ %>active<%} %>" >
+					<a class="nav-link" href="/shortenURL/makeShortenURL.jsp">ShortenURL</a>
 				</li>
 
 			</ul>
