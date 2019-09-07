@@ -10,6 +10,7 @@ import kr.co.kic.dev1.dto.DeptDto;
 import kr.co.kic.dev1.util.ConnLocator;
 
 public class DeptDao {
+	
 	private static DeptDao single;
 	private DeptDao() {}
 	
