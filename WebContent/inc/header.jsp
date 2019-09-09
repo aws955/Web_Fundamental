@@ -27,6 +27,8 @@
 		pageActiveIndex = 7;
 	}else if(path.startsWith("/shortenURL")){
 		pageActiveIndex = 8;
+	}else if(path.startsWith("/gtsm")){
+		pageActiveIndex = 9;
 	}
 	
 %>
@@ -78,12 +80,18 @@
 				<li class="nav-item <%if(pageActiveIndex==8){ %>active<%} %>" >
 					<a class="nav-link" href="/shortenURL/makeShortenURL.jsp">ShortenURL</a>
 				</li>
+				<li class="nav-item <%if(pageActiveIndex==9){ %>active<%} %>" >
+					<a class="nav-link" href="/gtsm/list.jsp">GTSM</a>
+				</li>
 
 			</ul>
 
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link " href="/member/register.jsp">Register</a>
+					<% if(memberDto ==null){ %>
+					<a class="nav-link " href="/member/login.jsp"><i class="fa fa-user"></i> Register </a>
+					<% } %>
+					
 				</li>
 				<li class="nav-item">
 					<% if(memberDto ==null){ %>

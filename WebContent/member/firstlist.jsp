@@ -12,6 +12,7 @@
 		0+(page-1)*10
 	*/
 	String tempPage = request.getParameter("page");
+	
 	int cPage = 0;
 	if (tempPage == null || tempPage.length()==0 ||tempPage.equals("0")) {
 		tempPage = "1";
@@ -28,6 +29,8 @@
 	int startPage = 0;
 	int endPage = 0;
 	int start = (cPage - 1) * length;
+	int pageNum = 0;
+	
 	MemberDao dao = MemberDao.getInstance();
 	ArrayList<MemberDto> list = dao.select(start, length);
 %>
@@ -57,7 +60,8 @@
 		currentBlock=3 =>startPage=21,endPage=26
 	*/
 	int totalRows = dao.getRows();
-
+	
+	pageNum = totalRows + (cPage-1)*(-length);	
 	//삼항연산자
 	totalPage = totalRows % length == 0 ? totalRows / length : totalRows / length + 1;
 
@@ -123,7 +127,7 @@
 											String regdate = dto.getRegdate();
 								%>
 								<tr>
-									<th scope="row"><%=seq%></th>
+									<th scope="row"><%=pageNum--%></th>
 									<td><%=name%></td>
 									<td><a href="view.jsp?seq=<%=seq%>&page=<%=cPage%>"><%=id%></a></td>
 									<td><%=email%></td>

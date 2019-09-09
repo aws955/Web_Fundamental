@@ -31,7 +31,7 @@
                 	<img class="form-control" src="" id="img_form_url"/>
                 </div>
                 <div class="form-group col-md-4">
-                    <a href="" id="refreshNumber" class="btn btn-info btn-lg btn-block"><i class="fa fa-refresh" aria-hidden="true"></i> REFRESH</a>
+                    <a href="#" id="refreshNumber" class="btn btn-info btn-lg btn-block"><i class="fa fa-refresh" aria-hidden="true"></i> REFRESH</a>
                 </div>
               </div>
               <div class="form-group">
@@ -59,8 +59,31 @@
             				alert('비밀번호를 입력하세요.');
             				$("#pwd").focus();
             				return;
+            			}if($("#captchaCode").val().trim()==""){
+            				alert('캡차코드를 입력하세요.');
+            				$("#captchaCode").focus();
+            				return;
             			}
-            			f.submit();
+            			
+            			$.ajax({
+            				type : 'GET',
+            				url : 'captcha/getKeyResult.jsp?key='+captchaKey+'&value='+$("#captchaCode").val().trim(),
+            				dataType : 'json',
+            				success : function(json){
+								if(json.result === true){
+									f.submit();
+								}else{
+									alert("캡차코드가 잘못 되었습니다.");
+									loadImage();
+								}
+            				}
+            			});
+            		
+            		});
+            		
+            		$("#refreshNumber").on("click",function(e){
+            			e.preventDefault();
+            			loadImage();
             		});
             		
             		var loadImage = function(){
