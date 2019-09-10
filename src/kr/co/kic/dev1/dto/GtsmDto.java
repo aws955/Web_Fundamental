@@ -25,6 +25,10 @@ public class GtsmDto {
 	public GtsmDto(String name, String email, String pwd) {
 		this(0,name,email,pwd,null);
 	}
+	
+	public GtsmDto(String email, String pwd) {
+		this(0,null,email,pwd,null);
+	}
 
 	public int getSeq() {
 		return seq;

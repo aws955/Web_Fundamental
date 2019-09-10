@@ -13,6 +13,7 @@ import kr.co.kic.dev1.dto.MemberDto;
 import kr.co.kic.dev1.util.ConnLocator;
 
 public class MemberDao {
+	
 	private static MemberDao single;
 
 	private MemberDao() {
@@ -24,6 +25,7 @@ public class MemberDao {
 		}
 		return single;
 	}
+
 
 	public boolean insert(MemberDto m) {
 		boolean isSuccess = false;
