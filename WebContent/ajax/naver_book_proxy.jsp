@@ -9,7 +9,7 @@
 String clientId = "QKKtzlDshC30LXMAsYkf";//애플리케이션 클라이언트 아이디값";
 String clientSecret = "qwMi3XhI9M";//애플리케이션 클라이언트 시크릿값";
 try {
-    String text = URLEncoder.encode("자바", "UTF-8");
+    String text = URLEncoder.encode("성영한", "UTF-8");
     String apiURL = "https://openapi.naver.com/v1/search/book.json?query="+ text; // json 결과
     //String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // xml 결과
     URL url = new URL(apiURL);
