@@ -1,5 +1,7 @@
 DROP TABLE gtsm;
 
+DESC gtsm;
+
 CREATE TABLE gtsm(
 gtsm_seq INT PRIMARY KEY AUTO_INCREMENT,
 gtsm_name VARCHAR(20) NOT NULL,
@@ -17,7 +19,6 @@ WHERE gtsm_seq = 1;
 
 DELETE FROM gtsm
 WHERE gtsm_seq =1;
-
 
 SELECT gtsm_seq, gtsm_name, gtsm_email, DATE_FORMAT(gtsm_regdate,'%Y/%m/%d')
 FROM gtsm
