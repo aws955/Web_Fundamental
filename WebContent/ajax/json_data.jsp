@@ -3,7 +3,7 @@
 <%@ page contentType="application/json;charset=utf-8"%>
 
 <%
-	JSONObject jsonObj = new JSONObject();
+	JSONObject jsonObj = new JSONObject();  
 	//jsonObj.put("name","성영한"); //{"name" : "성영한"}
 	
 	JSONArray jsonArray = new JSONArray();
